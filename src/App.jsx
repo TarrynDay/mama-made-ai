@@ -458,8 +458,7 @@ export default function MealPlanner() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [generated, setGenerated] = useState(false);
-  const [apiKey, setApiKey] = useState("");
-  const [showKey, setShowKey] = useState(false);
+  
 
   if (!unlocked) return <LicenceGate onUnlock={(days) => { setUnlocked(true); setDaysLeft(days); }} />;
 
@@ -473,10 +472,7 @@ export default function MealPlanner() {
   };
 
   const generatePlan = async () => {
-    if (!apiKey.trim()) {
-      setError("Please enter your Anthropic API key above to generate a meal plan.");
-      return;
-    }
+    
     setLoading(true);
     setError("");
     setPlan(null);
@@ -582,27 +578,7 @@ Respond ONLY with a valid JSON object (no markdown, no backticks, no explanation
         <div style={styles.formCard}>
           <h2 style={styles.formTitle}>Tell us about your family 🌿</h2>
 
-          {/* API Key Field */}
-          <div style={{ marginBottom: "20px", background: "#FFFAF7", border: "1.5px dashed #F0C8B0", borderRadius: "16px", padding: "16px" }}>
-            <label style={{ ...styles.label, display: "block", marginBottom: "6px" }}>🔑 Anthropic API Key (for testing)</label>
-            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-              <input
-                style={{ ...styles.input, flex: 1, fontFamily: "monospace", fontSize: "12px" }}
-                type={showKey ? "text" : "password"}
-                placeholder="sk-ant-..."
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-              />
-              <button
-                onClick={() => setShowKey((v) => !v)}
-                style={{ background: "white", border: "1.5px solid #F0C8B0", borderRadius: "10px", padding: "10px 12px", cursor: "pointer", fontSize: "12px", color: "#9B7060", whiteSpace: "nowrap" }}
-              >{showKey ? "Hide" : "Show"}</button>
-            </div>
-            <p style={{ fontSize: "11px", color: "#B09080", marginTop: "8px", marginBottom: 0 }}>
-              Your key is never saved or stored. Get yours at console.anthropic.com
-            </p>
-          </div>
-
+        
           <div style={styles.fieldRow}>
             <div style={styles.field}>
               <label style={styles.label}>Servings</label>
